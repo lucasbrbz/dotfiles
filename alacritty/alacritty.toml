@@ -1,0 +1,116 @@
+# $HOME/.config/alacritty/alacritty.toml
+# Theme: Ubuntu Default Terminal
+
+[window]
+dimensions = { columns = 100, lines = 30 }
+# padding = { x = 6, y = 6 }
+# opacity = 0.95
+opacity = 0.75
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[font]
+normal = { family = "UbuntuMono Nerd Font Mono", style = "Regular" }
+# bold = { family = "UbuntuMono Nerd Font Mono", style = "Bold" }
+# italic = { family = "UbuntuMono Nerd Font Mono", style = "Italic" }
+# bold_italic = { family = "UbuntuMono Nerd Font Mono", style = "Bold Italic" }
+
+size = 14
+offset = { x = 0, y = 0 }
+glyph_offset = { x = 0, y = 0 }
+
+[bell]
+animation = "EaseOutExpo"
+duration = 0
+color = "#CC0000"
+command = "None"
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+save_to_clipboard = true
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+blink_interval = 500
+blink_timeout = 0
+unfocused_hollow = true
+thickness = 0.15
+
+[colors.primary]
+# background = "#300A24"     # Ubuntu purple-ish default
+background = "#000000"
+foreground = "#EEEEEC"     # Light text
+
+dim_foreground = "#BABDB6"
+bright_foreground = "#FFFFFF"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.vi_mode_cursor]
+text = "CellBackground"
+cursor = "CellForeground"
+
+[colors.search.matches]
+foreground = "CellBackground"
+background = "#C4A000"
+
+[colors.search.focused_match]
+foreground = "CellBackground"
+background = "#3465A4"
+
+[colors.footer_bar]
+foreground = "#EEEEEC"
+background = "#2E3436"
+
+[colors.hints.start]
+foreground = "#2E3436"
+background = "#FCE94F"
+
+[colors.hints.end]
+foreground = "#2E3436"
+background = "#FCE94F"
+
+[colors.selection]
+text = "CellForeground"
+background = "#555753"
+
+[colors.normal]
+black   = "#2E3436"
+red     = "#CC0000"
+green   = "#4E9A06"
+yellow  = "#C4A000"
+blue    = "#3465A4"
+magenta = "#75507B"
+cyan    = "#06989A"
+white   = "#D3D7CF"
+
+[colors.bright]
+black   = "#555753"
+red     = "#EF2929"
+green   = "#8AE234"
+yellow  = "#FCE94F"
+blue    = "#729FCF"
+magenta = "#AD7FA8"
+cyan    = "#34E2E2"
+white   = "#EEEEEC"
+
+[colors.dim]
+black   = "#2E3436"
+red     = "#a40000"
+green   = "#346604"
+yellow  = "#875f00"
+blue    = "#204a87"
+magenta = "#5c3566"
+cyan    = "#066678"
+white   = "#888a85"
+
+[keyboard]
+bindings = []
+
+[shell]
+program = "/bin/bash"
+args = ["-l"]#, "-c", "tmux attach || tmux"]
