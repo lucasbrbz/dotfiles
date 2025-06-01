@@ -1,0 +1,16 @@
+[user]
+	name = Lucas Barboza
+	email = lucas.barboza@toradex.com
+[pull]
+	rebase = false
+[color]
+	ui = auto
+[format]
+	signoff = true
+[alias]
+	next = stack next
+	prev = stack previous
+	reword = stack reword
+	amend = stack amend
+	sync = stack sync
+	run = stack run
