@@ -1,3 +1,4 @@
+alias diff='diff --color=auto'
 alias picocom='picocom -b 115200 -r -l'
 
 # gitroot: Change directory to the root of the current Git repository
