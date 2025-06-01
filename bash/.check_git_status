@@ -1,0 +1,10 @@
+#!/bin/bash
+
+REPO_DIR="$HOME/.dotfiles"
+
+cd "$REPO_DIR" || exit 1
+
+# Check for changes: unstaged, staged, or untracked
+if [[ -n $(git status --porcelain) ]]; then
+    echo -e "\033[0;31m⚠  WARNING: There are uncommitted changes in $REPO_DIR!\n\033[0m"
+fi

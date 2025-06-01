@@ -35,4 +35,7 @@ PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")'; PS1='\[$(tput setaf 8)\](\t) \[$
 # Enable i-search (Ctrl+s)
 stty -ixon
 
+# Check for changes in .dotfiles repository
+$HOME/.dotfiles/bash/.check_git_status
+
 export LANG=en_US.UTF-8
