@@ -32,9 +32,6 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 export PS1='\w$(__git_ps1 " (%s)")\$ '
 PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")'; PS1='\[$(tput setaf 8)\](\t) \[$(tput sgr0)\][\[$(tput setaf 13)\]\u\[$(tput setaf 13)\]@\[$(tput setaf 13)\]\h\[$(tput setaf 11)\]${PS1_CMD1} \[$(tput setaf 10)\]\W\[$(tput sgr0)\] ]$ '
 
-# Enable i-search (Ctrl+s)
-stty -ixon
-
 # Check for changes in .dotfiles repository
 $HOME/.dotfiles/bash/.check_git_status
 
