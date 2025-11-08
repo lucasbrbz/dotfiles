@@ -124,3 +124,4 @@ export NVM_DIR="$HOME/.nvm"
 stty -ixon
 
 export PATH=$PATH:~/bin
+export PATH=$PATH:$HOME/.cargo/bin
