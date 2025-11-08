@@ -60,3 +60,7 @@ goodbye() {
   systemctl suspend >/dev/null 2>&1
 }
 
+set_trackpoint() {
+  xinput --set-prop "TPPS/2 Elan TrackPoint" "libinput Accel Speed" -0.3
+}
+
