@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Get list of paired device MAC addresses
+CONNECTED_DEVICE=""
+
+while read -r MAC NAME; do
+    INFO=$(bluetoothctl info "$MAC")
+    if echo "$INFO" | grep -q "Connected: yes"; then
+        DEVICE_NAME=$(echo "$INFO" | grep "Name:" | cut -d ' ' -f2-)
+        CONNECTED_DEVICE="$DEVICE_NAME"
+        break
+    fi
+done < <(bluetoothctl paired-devices | awk '{print $2, $3, $4, $5, $6, $7}' | sed 's/  */ /g')
+
+# Toggle with left click
+POWERED=$(bluetoothctl show | grep "Powered: yes")
+
+if [ "$BLOCK_BUTTON" == "1" ]; then
+    if [ -n "$POWERED" ]; then
+        bluetoothctl power off >/dev/null
+    else
+        bluetoothctl power on >/dev/null
+    fi
+fi
+
+if [ -z "$POWERED" ]; then
+    ICON="󰂲"   # Bluetooth Off icon
+    TEXT="Off"
+else
+    ICON=""   # Bluetooth On icon
+    if [ -n "$CONNECTED_DEVICE" ]; then
+        TEXT="$CONNECTED_DEVICE"
+    else
+        TEXT="On"
+    fi
+fi
+
+echo "$ICON $TEXT"
+echo "$ICON $TEXT"
+echo

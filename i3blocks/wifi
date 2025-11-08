@@ -1,0 +1,41 @@
+#!/bin/bash
+
+SSID_NAME=$(iwgetid -r)
+STATUS=$(nmcli radio wifi)
+device="${BLOCK_INSTANCE}"
+
+if [ "$BLOCK_BUTTON" == "1" ]; then
+    # Toggle Wi-Fi on left click
+    if [ "$STATUS" == "enabled" ]; then
+        nmcli radio wifi off
+    else
+        nmcli radio wifi on
+    fi
+fi
+
+if [ "$STATUS" == "disabled" ]; then
+    ICON="󰖪 "   # Wi-Fi off icon
+    SSID_NAME="Off"
+else
+    ICON=" "   # Wi-Fi on icon
+    SSID_NAME=${SSID_NAME:-"Disconnected"}
+fi
+
+if [[ -d "/sys/class/net/${device}/wireless" ]]; then
+    quality=$(grep ${device} /proc/net/wireless | awk '{ print int($3 * 100 / 70) }')
+    if [[ ! -z $quality ]]; then
+        QUALITY=" (${quality}%)"
+    fi
+fi
+echo "$ICON $SSID_NAME$QUALITY"
+echo "$ICON $SSID_NAME$QUALITY"
+echo ""
+
+# You can put any urgent name so the block will give warning
+# if a network with this name is used, like public wifi or alike.
+# You can separate multiple values with \|
+URGENT_VALUE=""
+
+if [[ "${URGENT_VALUE}" != "" ]] && [[ $(echo "${SSID_NAME}" | grep -we "${URGENT_VALUE}") != "" ]]; then
+exit 33
+fi

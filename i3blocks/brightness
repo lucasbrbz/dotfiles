@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Read current brightness and maximum brightness
+current=$(brightnessctl g)
+max=$(brightnessctl m)
+
+# Calculate percentage
+percent=$(( 100 * current / max ))
+
+# Handle click events
+if [[ "$BLOCK_BUTTON" -eq 1 ]]; then
+    brightnessctl -q set +10%
+elif [[ "$BLOCK_BUTTON" -eq 3 ]]; then
+    if [[ "$percent" -le "$URGENT_VALUE" ]]; then
+        brightnessctl -q set "${URGENT_VALUE}%"
+    else
+        brightnessctl -q set 10%-
+    fi
+fi
+
+# Display output (pre-click state per i3blocks convention)
+echo "${percent}%"
+echo "${percent}%"
+echo ""
+

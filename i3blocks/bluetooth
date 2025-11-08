@@ -1,0 +1,25 @@
+#!/bin/bash
+
+STATUS=$(bluetoothctl show | grep "Powered: yes")
+
+if [ "$BLOCK_BUTTON" == "1" ]; then
+    if [ -n "$STATUS" ]; then
+        bluetoothctl power off >/dev/null
+    else
+        bluetoothctl power on >/dev/null
+    fi
+fi
+
+if [ -n "$STATUS" ]; then
+    ICON=" "
+#     CONN="On"
+else
+    ICON="󰂲 "
+#     CONN="Off"
+fi
+
+# echo "$ICON $CONN"
+# echo "$ICON $CONN"
+echo "$ICON"
+echo "$ICON"
+echo

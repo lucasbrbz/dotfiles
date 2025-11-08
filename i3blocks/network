@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Declare the associative array
+declare -A device_names=(
+  ["enp0s31f6"]="Eth"
+  ["enx6c1ff7068326"]="USB"
+)
+
+device="${BLOCK_INSTANCE}"
+name=${device_names[$device]}
+status=$(cat /sys/class/net/${device}/operstate)
+
+URGENT_VALUE=20
+
+if [[ "${status}" == "up" ]]; then
+  echo "${name}"
+  echo "${name}"
+  echo ""
+fi
