@@ -1,0 +1,106 @@
+#!/usr/bin/env bash
+
+# colors
+BG_COLOR="#000000"
+INACTIVE_BG_COLOR="#000000"
+TEXT_COLOR="#ffffff"
+INACTIVE_TEXT_COLOR="#aea79f"
+URGENT_BG_COLOR="#c01c28"
+WS_BG_COLOR="#e95420"
+
+WALLPAPER="/usr/share/backgrounds/warty-final-ubuntu.png"
+
+# monitor names
+# adjust with: xrandr --query
+# PRIMARY_MONITOR="DP-1"
+# SECONDARY_MONITOR="DP-2"
+
+# basic settings
+bspc config border_width         2
+bspc config window_gap           10
+bspc config top_padding          20
+bspc config right_padding        20
+bspc config left_padding         20
+bspc config bottom_padding       56
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focus_follows_pointer false
+bspc config pointer_follows_focus false
+bspc config click_to_focus       button1
+bspc config remove_disabled_monitors true
+bspc config remove_unplugged_monitors true
+
+# window colors
+bspc config normal_border_color  "$INACTIVE_BG_COLOR"
+bspc config active_border_color  "$INACTIVE_BG_COLOR"
+bspc config focused_border_color "$WS_BG_COLOR"
+bspc config presel_feedback_color "$WS_BG_COLOR"
+
+# wallpaper
+feh --bg-fill "$WALLPAPER" &
+
+# compositor
+picom &
+
+# bar
+pkill -x polybar 2>/dev/null
+polybar &
+
+# keyboard daemon
+pkill -x sxhkd 2>/dev/null
+sxhkd &
+
+MONITOR="$(bspc query -M --names | head -n1)"
+
+bspc monitor "$MONITOR" -d \
+  "1" \
+  "2" \
+  "3" \
+  "4" \
+  "5" \
+  "6" \
+  "7" \
+  "8" \
+  "9" \
+  "10"
+
+# monitor desktops / workspaces
+# bspc monitor "$PRIMARY_MONITOR" -d \
+#   "1:  terminal" \
+#   "2: 󰖟 web" \
+#   "4: 󱔘 office" \
+#   "5:  5" \
+#   "6:  6" \
+#   "7:  7" \
+#   "8:  8" \
+#   "9:  chat" \
+#   "10:  media"
+
+# bspc monitor "$SECONDARY_MONITOR" -d \
+#   "3:   code"
+
+# optional fallback if secondary monitor is absent
+# if ! xrandr --query | grep -q "^${SECONDARY_MONITOR} connected"; then
+#   bspc monitor "$PRIMARY_MONITOR" -a "3:   code"
+# fi
+
+# rules: general
+bspc rule -a '*' border=on
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+# app assignments
+bspc rule -a Spotify desktop='^10:  media' follow=off
+bspc rule -a ZapZap desktop='^9:  chat' follow=off
+bspc rule -a Slack desktop='^4: 󱔘 office' follow=off
+# bspc rule -a Brave-browser:*Outlook* desktop='^4: 󱔘 office' follow=off
+# bspc rule -a Brave-browser:*Notion* desktop='^4: 󱔘 office' follow=off
+bspc rule -a Code desktop='^3:   code' follow=off
+bspc rule -a Emacs desktop='^3:   code' follow=off
+bspc rule -a Brave-browser desktop='^2: 󰖟 web' follow=off
+bspc rule -a Alacritty desktop='^1:  terminal' follow=off
+
+# set initial layout style
+bspc desktop '^1' -l tiled
