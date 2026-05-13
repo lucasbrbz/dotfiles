@@ -2,7 +2,7 @@
 
 choice=$(
     printf "Lock\nSuspend\nReboot\nPoweroff\n" |
-    rofi -dmenu -i -p "system" -theme ~/.config/rofi/theme.rasi
+    rofi -dmenu -p "system"
 )
 
 case "$choice" in

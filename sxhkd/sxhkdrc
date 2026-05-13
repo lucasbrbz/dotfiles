@@ -126,7 +126,7 @@ Print
 
 # launcher
 super + d
-    rofi -show drun -theme ~/.config/rofi/theme.rasi
+    rofi -show drun
 
 super + BackSpace
     ~/.dotfiles/bspwm/scripts/powermenu.sh
