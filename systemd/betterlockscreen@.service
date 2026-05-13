@@ -1,0 +1,15 @@
+[Unit]
+Description=Lock screen before suspend
+Before=suspend.target sleep.target
+
+[Service]
+User=%i
+Type=oneshot
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/%i/.Xauthority
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+ExecStart=/usr/local/bin/betterlockscreen --lock
+TimeoutSec=30
+
+[Install]
+WantedBy=suspend.target sleep.target
