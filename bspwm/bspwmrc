@@ -130,6 +130,11 @@ bspc rule -a '*' border=on
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
+# scratchpads
+
+bspc rule -a scratchpad-term state=floating sticky=on layer=above hidden=off rectangle=1200x700+360+120 center=on
+bspc rule -a scratchpad-yazi state=floating sticky=on layer=above hidden=off rectangle=1400x800+260+80 center=on
+
 # app assignments
 
 bspc rule -a Alacritty desktop='^1' follow=off
