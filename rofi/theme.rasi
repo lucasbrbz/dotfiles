@@ -1,6 +1,6 @@
 * {
-    bg: #000000;
-    fg: #ffffff;
+    bg:     rgba(0, 0, 0, 0.8);
+    fg:     #ffffff;
     fg-alt: #aea79f;
     accent: #e95420;
     urgent: #c01c28;
@@ -15,31 +15,31 @@ window {
 }
 
 mainbox {
-    background-color: @bg;
+    background-color: transparent;
 }
 
 inputbar {
-    background-color: @bg;
+    background-color: transparent;
     text-color: @fg;
     children: [ prompt, entry ];
     padding: 8px;
 }
 
 prompt {
-    background-color: @bg;
+    background-color: transparent;
     text-color: @accent;
     padding: 0px 8px 0px 0px;
 }
 
 entry {
-    background-color: @bg;
+    background-color: transparent;
     text-color: @fg;
     placeholder: "Search";
     placeholder-color: @fg-alt;
 }
 
 listview {
-    background-color: @bg;
+    background-color: transparent;
     columns: 1;
     lines: 10;
     spacing: 6px;
@@ -47,7 +47,7 @@ listview {
 }
 
 element {
-    background-color: @bg;
+    background-color: transparent;
     text-color: @fg;
     border-radius: 8px;
     padding: 6px 10px;
@@ -59,12 +59,12 @@ element selected {
 }
 
 element-text {
-    background-color: inherit;
+    background-color: transparent;
     text-color: inherit;
 }
 
 element-icon {
-    background-color: inherit;
+    background-color: transparent;
     text-color: inherit;
     size: 1em;
 }
