@@ -23,8 +23,16 @@ off_args() {
 
 restart_polybar() {
   pkill -x polybar 2>/dev/null
+  # host the tray on the xrandr primary output only, so it doesn't randomly
+  # land on whichever polybar instance wins the systray race
+  primary=$(xrandr --query | awk '/ primary/{print $1; exit}')
+  right_modules="wired-network wireless-network pulseaudio battery date time"
   for m in $(bspc query -M --names); do
-    MONITOR="$m" polybar &
+    if [ "$m" = "$primary" ]; then
+      MONITOR="$m" RIGHT_MODULES="$right_modules tray" polybar &
+    else
+      MONITOR="$m" RIGHT_MODULES="$right_modules" polybar &
+    fi
   done
 }
 
