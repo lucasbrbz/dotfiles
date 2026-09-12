@@ -89,9 +89,9 @@ super + space
 super + shift + c
     bspc wm -r
 
-# restart bspwm in place
+# reset menu (bspwm/sxhkd/rofi/polybar)
 super + shift + r
-    bspc wm -r
+    ~/.dotfiles/bspwm/scripts/resetmenu.sh
 
 # scratchpads
 super + Return
@@ -120,7 +120,7 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
     brightnessctl -q set 10%-
 XF86Display
-    xrandr_display_mode primary
+    ~/.dotfiles/bspwm/scripts/monitorlayout.sh
 Print
     flameshot gui
 

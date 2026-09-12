@@ -10,55 +10,14 @@ WS_BG_COLOR="#e95420"
 
 WALLPAPER="/usr/share/backgrounds/warty-final-ubuntu.png"
 
-# monitor handling
-xrandr_display_mode() {
-  DEFAULT="extend"
-    
-  if [ $(xrandr --listmonitors | head -n 1 | cut -d: -f2) -gt 2 ]; then
-    DEFAULT="external"
-  fi
-  
-  MODE="${1:-$DEFAULT}"
-  
-  case "$MODE" in
-    extend)
-      xrandr \
-        --output eDP-1 --mode 1920x1200 --rate 60.00 --pos 5120x0 --rotate normal \
-        --output DP-2 --mode 2560x1080 --rate 74.99 --pos 2560x0 --rotate normal --primary \
-        --output DP-1 --mode 2560x1080 --rate 74.99 --pos 0x0 --rotate normal
-      ;;
-    mirror)
-      COMMON_RES="1920x1080"
-      COMMON_RATE="60.00"
-      xrandr \
-        --output eDP-1 --mode $COMMON_RES --rate $COMMON_RATE --pos 0x0 --rotate normal --primary \
-        --output DP-2 --mode $COMMON_RES --rate $COMMON_RATE --pos 0x0 --rotate normal --same-as eDP-1 \
-        --output DP-1 --mode $COMMON_RES --rate $COMMON_RATE --pos 0x0 --rotate normal --same-as eDP-1
-      ;;
-    primary)
-      xrandr \
-        --output eDP-1 --mode 1920x1200 --rate 60.00 --primary \
-        --output DP-2 --off \
-        --output DP-1 --off
-      ;;
-    external)
-      xrandr \
-        --output eDP-1 --off \
-        --output DP-1 --mode 2560x1080 --rate 74.99 --pos 0x0 --rotate normal --primary \
-        --output DP-2 --mode 2560x1080 --rate 74.99 --pos 2560x0 --rotate normal
-      ;;
-    *)
-      echo "Usage: xrandr_display_mode [extend|mirror|primary|external]"
-      return 1
-      ;;
-  esac
-}
-
-# display layout
-xrandr_display_mode "${BSPWM_DISPLAY_MODE:-external}"
-
-# give X a moment to settle
+# reapply whatever layout was last active this session (e.g. a bspc wm -r to
+# fix picom glitches shouldn't undo your monitor setup); falls back to
+# laptop-only on a fresh login, since the state file is cleared on logout/reboot
 sleep 0.5
+LAYOUT_STATE="${XDG_RUNTIME_DIR:-/tmp}/screenlayout-current"
+LAYOUT_SCRIPT="$HOME/.screenlayout/$(cat "$LAYOUT_STATE" 2>/dev/null || echo laptop).sh"
+[ -x "$LAYOUT_SCRIPT" ] || LAYOUT_SCRIPT="$HOME/.screenlayout/laptop.sh"
+"$LAYOUT_SCRIPT"
 
 # basic settings
 bspc config border_width         2
@@ -84,27 +43,6 @@ bspc config active_border_color   "$INACTIVE_BG_COLOR"
 bspc config focused_border_color  "$WS_BG_COLOR"
 bspc config presel_feedback_color "$WS_BG_COLOR"
 
-# wait until bspwm sees the monitors
-for _ in $(seq 1 20); do
-  monitors=($(bspc query -M --names))
-  [ "${#monitors[@]}" -gt 0 ] && break
-  sleep 0.1
-done
-
-# desktop assignment
-if printf '%s\n' "${monitors[@]}" | grep -qx "DP-1" && printf '%s\n' "${monitors[@]}" | grep -qx "DP-2"; then
-  # dual external setup
-  bspc monitor DP-1 -d 1 2 3 4 5
-  bspc monitor DP-2 -d 6 7 8 9 10
-elif printf '%s\n' "${monitors[@]}" | grep -qx "eDP-1"; then
-  # laptop-only setup
-  bspc monitor eDP-1 -d 1 2 3 4 5 6 7 8 9 10
-else
-  # fallback: first active monitor gets everything
-  MONITOR="${monitors[0]}"
-  bspc monitor "$MONITOR" -d 1 2 3 4 5 6 7 8 9 10
-fi
-
 # services
 # keyboard daemon
 pkill -x sxhkd 2>/dev/null
@@ -115,12 +53,6 @@ picom &
 # notifications
 pkill -x dunst 2>/dev/null
 dunst &
-
-# polybar: one per active monitor
-pkill -x polybar 2>/dev/null
-for m in $(bspc query -M --names); do
-  MONITOR="$m" polybar &
-done
 
 # wallpaper
 feh --bg-fill "$WALLPAPER" &
