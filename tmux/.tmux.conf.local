@@ -300,14 +300,16 @@ tmux_conf_urlscan_options="--compact --dedupe"
 # increase history size
 set -g history-limit 1000000
 
+# use emacs keybindings in copy mode
+set -g mode-keys emacs
+
 # start with mouse mode enabled
 set -g mouse on
 
-# replace C-b by C-space instead of using both prefixes
-set -gu prefix2
+# replace C-b by C-q
+set -g prefix C-q
+bind C-q send-prefix
 unbind C-b
-set -g prefix C-space
-bind C-space send-prefix
 
 # if you don't want Oh my tmux! to alter a binding or a setting, use #!important
 # bind c new-window -c '#{pane_current_path}' #!important
@@ -320,6 +322,9 @@ bind -n M-j select-pane -L
 bind -n M-l select-pane -R
 bind -n M-i select-pane -U
 bind -n M-k select-pane -D
+
+# cycle panes with prefix+o (next) and prefix+p (previous)
+bind p select-pane -t :.-
 
 # sync panes
 bind -n M-s setw synchronize-panes
