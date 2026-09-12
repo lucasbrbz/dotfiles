@@ -64,7 +64,7 @@ super + f
     bspc node -t ~fullscreen
 
 # change container layout equivalents
-super + t
+super + z
     bspc desktop -l monocle
 
 super + e
@@ -94,7 +94,7 @@ super + shift + r
     ~/.dotfiles/bspwm/scripts/resetmenu.sh
 
 # scratchpads
-super + Return
+super + t
     ~/.dotfiles/bspwm/scripts/scratchpad.sh term
 
 super + y
