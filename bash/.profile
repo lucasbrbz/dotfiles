@@ -35,4 +35,9 @@ PROMPT_COMMAND='PS1_CMD1=$(__git_ps1 " (%s)")'; PS1='\[$(tput setaf 8)\](\t) \[$
 # Check for changes in .dotfiles repository
 $HOME/.dotfiles/bash/.check_git_status
 
+export EDITOR="emacs -nw"
+export VISUAL="emacs -nw"
+
 export LANG=en_US.UTF-8
+export QT_QPA_PLATFORMTHEME=qt5ct
+export GTK_THEME=Adwaita-dark

@@ -1,0 +1,30 @@
+# Openers are matched by MIME type rather than by system .desktop files, so
+# this stays portable across distros — only the binary names below need to
+# exist on $PATH.
+#
+# All text (text/*, plus application/{json,ndjson,javascript,wine-extension-ini})
+# and images/video already fall through to yazi's built-in "edit"/"open"/
+# "play" openers, which resolve to $EDITOR (see bash/.profile: emacs -nw) and
+# xdg-open respectively — no custom rules needed for those.
+
+[opener]
+okular = [
+	{ run = 'okular %s', orphan = true, desc = "Open in Okular" },
+]
+libreoffice = [
+	{ run = 'libreoffice %s', orphan = true, desc = "Open in LibreOffice" },
+]
+
+[open]
+prepend_rules = [
+	# PDFs
+	{ mime = "application/pdf", use = "okular" },
+
+	# Office documents (docx/xlsx/pptx/odt/ods/odp/doc/xls/ppt/...)
+	{ mime = "application/vnd.openxmlformats-officedocument.*", use = "libreoffice" },
+	{ mime = "application/vnd.oasis.opendocument.*", use = "libreoffice" },
+	{ mime = "application/msword", use = "libreoffice" },
+	{ mime = "application/vnd.ms-excel", use = "libreoffice" },
+	{ mime = "application/vnd.ms-powerpoint", use = "libreoffice" },
+	{ mime = "application/rtf", use = "libreoffice" },
+]
