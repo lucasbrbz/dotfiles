@@ -1,0 +1,59 @@
+# Emacs-flavored additions on top of yazi's built-in (vim-style) keymap.
+# These are merged with the defaults, not a replacement, so hjkl/dd/yy/p
+# etc. still work — pick whichever muscle memory fires first.
+
+[mgr]
+
+prepend_keymap = [
+	{ on = "<C-n>", run = "arrow next",  desc = "Next file (Emacs)" },
+	{ on = "<C-p>", run = "arrow prev",  desc = "Previous file (Emacs)" },
+	{ on = "<C-v>", run = "arrow 100%",  desc = "Page down (Emacs)" },
+	{ on = "<A-v>", run = "arrow -100%", desc = "Page up (Emacs)" },
+	{ on = "^",     run = "leave",       desc = "Up to parent directory (Dired)" },
+
+	# Yazi's default "open" action always runs the [open] opener rules, and
+	# the default rule for folders is `edit`, i.e. $EDITOR (vi if unset) —
+	# so Enter/o would launch an editor on a directory instead of entering
+	# it. smart-enter (https://github.com/yazi-rs/plugins/tree/main/smart-enter.yazi)
+	# checks the hovered item and enters directories, opens files.
+	{ on = "<Enter>", run = "plugin smart-enter", desc = "Enter directory, or open file" },
+	{ on = "o",       run = "plugin smart-enter", desc = "Enter directory, or open file" },
+
+	# Cancel (keyboard-quit): clear an ongoing search first if there is one,
+	# then fall back to plain escape (exit visual mode / clear selection).
+	{ on = "<C-g>", run = [ "escape --search", "escape" ], desc = "Cancel (Emacs)" },
+	# Start an incremental-style search; C-g/Esc above cancels it.
+	{ on = "<C-s>", run = "find --smart", desc = "Search (Emacs)" },
+
+	# Copy/cut/paste using Emacs' kill-ring vocabulary (M-w copies, C-w
+	# cuts, C-y yanks/pastes) alongside yazi's own y/x/p.
+	{ on = "<A-w>", run = "yank",         desc = "Copy (Emacs)" },
+	{ on = "<C-w>", run = "yank --cut",   desc = "Cut (Emacs)" },
+	{ on = "<C-y>", run = "paste",        desc = "Paste (Emacs)" },
+]
+
+# C-g as a universal cancel, matching Emacs' keyboard-quit, across every
+# modal/panel context.
+[input]
+# "escape" only steps the input's own vi-style insert mode back to normal
+# mode (still open); a real keyboard-quit has to fully close it in one go.
+prepend_keymap  = [ { on = "<C-g>", run = "close", desc = "Cancel (Emacs)" } ]
+
+[confirm]
+prepend_keymap  = [ { on = "<C-g>", run = "close",  desc = "Cancel (Emacs)" } ]
+
+[pick]
+prepend_keymap  = [ { on = "<C-g>", run = "close",  desc = "Cancel (Emacs)" } ]
+
+[tasks]
+prepend_keymap  = [ { on = "<C-g>", run = "close",  desc = "Cancel (Emacs)" } ]
+
+[spot]
+prepend_keymap  = [ { on = "<C-g>", run = "close",  desc = "Cancel (Emacs)" } ]
+
+[cmp]
+prepend_keymap  = [ { on = "<C-g>", run = "close",  desc = "Cancel (Emacs)" } ]
+
+[help]
+# Same two-stage "escape" issue as [input]: hard-close in one press instead.
+prepend_keymap  = [ { on = "<C-g>", run = "close", desc = "Cancel (Emacs)" } ]
