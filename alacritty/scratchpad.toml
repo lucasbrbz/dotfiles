@@ -24,7 +24,7 @@ glyph_offset = { x = 0, y = 0 }
 [bell]
 animation = "EaseOutExpo"
 duration = 0
-color = "#CC0000"
+color = "#B44F5F"
 command = "None"
 
 [selection]
@@ -40,8 +40,9 @@ thickness = 0.15
 
 [colors.primary]
 # background = "#300A24"     # Ubuntu purple-ish default
-background = "#000000"
-foreground = "#EEEEEC"     # Light text
+# claude-inspired yazi flavor: rapidrabbit76/claude-inspired
+background = "#171412"
+foreground = "#FEF3C7"     # Light text
 
 dim_foreground = "#BABDB6"
 bright_foreground = "#FFFFFF"
@@ -63,8 +64,8 @@ foreground = "CellBackground"
 background = "#3465A4"
 
 [colors.footer_bar]
-foreground = "#EEEEEC"
-background = "#2E3436"
+foreground = "#FEF3C7"
+background = "#24211F"
 
 [colors.hints.start]
 foreground = "#2E3436"
@@ -76,7 +77,7 @@ background = "#FCE94F"
 
 [colors.selection]
 text = "CellForeground"
-background = "#555753"
+background = "#3C3835"
 
 [colors.normal]
 black   = "#2E3436"

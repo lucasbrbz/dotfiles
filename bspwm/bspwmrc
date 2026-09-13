@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# colors
-BG_COLOR="#000000"
-INACTIVE_BG_COLOR="#000000"
-TEXT_COLOR="#ffffff"
-INACTIVE_TEXT_COLOR="#aea79f"
-URGENT_BG_COLOR="#c01c28"
-WS_BG_COLOR="#e95420"
+# colors (claude-inspired yazi flavor: rapidrabbit76/claude-inspired)
+BG_COLOR="#171412"
+# yazi's own border_style color — gives unfocused window borders a subtle,
+# visible outline instead of blending fully into the black background
+INACTIVE_BG_COLOR="#3C3835"
+TEXT_COLOR="#FEF3C7"
+INACTIVE_TEXT_COLOR="#9C9793"
+URGENT_BG_COLOR="#B44F5F"
+WS_BG_COLOR="#C76A4F"
 
 WALLPAPER="/usr/share/backgrounds/warty-final-ubuntu.png"
 

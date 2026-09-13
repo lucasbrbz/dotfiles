@@ -1,9 +1,12 @@
 * {
-    bg:     rgba(0, 0, 0, 0.8);
-    fg:     #ffffff;
-    fg-alt: #aea79f;
-    accent: #e95420;
-    urgent: #c01c28;
+    /* claude-inspired yazi flavor: rapidrabbit76/claude-inspired */
+    bg:     rgba(23, 20, 18, 0.8);
+    bg-alt: rgba(36, 33, 31, 0.8);
+    fg:     #FEF3C7;
+    fg-alt: #9C9793;
+    accent: #C76A4F;
+    urgent: #B44F5F;
+    border: #3C3835;
 }
 
 window {
@@ -23,6 +26,8 @@ inputbar {
     text-color: @fg;
     children: [ prompt, entry ];
     padding: 8px;
+    border: 0px 0px 1px 0px;
+    border-color: @border;
 }
 
 prompt {
@@ -47,7 +52,7 @@ listview {
 }
 
 element {
-    background-color: transparent;
+    background-color: @bg-alt;
     text-color: @fg;
     border-radius: 8px;
     padding: 6px 10px;
